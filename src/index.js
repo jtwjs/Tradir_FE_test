@@ -1,31 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routes from "./Routes";
-import { Provider } from "react-redux";
-import rootReducer from "./Modules";
-import { rootSaga } from "./Modules";
-import createSagaMiddleware from "redux-saga";
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import logger from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { ThemeProvider } from 'styled-components';
+
+import rootReducer, { rootSaga } from 'Modules';
+import GlobalStyle from 'src/Styles/globalStyle';
+import { theme } from 'src/Styles/theme';
+
+import Routes from 'Routes';
 
 const sagaMiddleware = createSagaMiddleware();
+const middleware =
+  process.env.NODE_ENV === 'development'
+    ? [sagaMiddleware, logger]
+    : [sagaMiddleware];
 
 export const store = createStore(
   rootReducer,
-  compose(
-    applyMiddleware(sagaMiddleware)
-    // ,
-    // (window as any).__REDUX_DEVTOOLS_EXTENSION__
-    //   ? composeWithDevTools()
-    //   : (f) => f
-  )
+  composeWithDevTools(applyMiddleware(...middleware)),
 );
 
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Routes />
-  </Provider>
-  ,
-  document.getElementById('root')
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Routes />
+    </ThemeProvider>
+  </Provider>,
+  document.getElementById('root'),
 );
