@@ -7,11 +7,10 @@ import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { ThemeProvider } from 'styled-components';
 
-import rootReducer, { rootSaga } from 'Modules';
-import GlobalStyle from 'src/Styles/globalStyle';
-import { theme } from 'src/Styles/theme';
-
 import Routes from 'Routes';
+import rootReducer, { rootSaga } from 'Modules';
+import GlobalStyle from 'Styles/globalStyle';
+import Theme from 'Styles/theme';
 
 const sagaMiddleware = createSagaMiddleware();
 const middleware =
@@ -28,7 +27,7 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={Theme.light}>
       <GlobalStyle />
       <Routes />
     </ThemeProvider>
