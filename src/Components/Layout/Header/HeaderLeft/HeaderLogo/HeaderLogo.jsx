@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { ReactComponent as LogoIcon } from 'Assets/icons/ic_logo.svg';
@@ -6,9 +7,9 @@ import { ReactComponent as LogoIcon } from 'Assets/icons/ic_logo.svg';
 function HeaderLogo() {
   return (
     <HeaderLogoContainer>
-      <HomeLink href="/">
+      <HomeLink to="/">
         <StyledLogoIcon />
-        <LogoText>Beer Like It</LogoText>
+        Beer Like It
       </HomeLink>
     </HeaderLogoContainer>
   );
@@ -23,7 +24,7 @@ const HeaderLogoContainer = styled.h1`
   font-weight: 600;
 `;
 
-const HomeLink = styled.a`
+const HomeLink = styled(Link)`
   display: flex;
   align-items: center;
   height: 100%;
@@ -33,6 +34,5 @@ const StyledLogoIcon = styled(LogoIcon)`
   width: 3.6rem;
   height: 3.6rem;
   margin-right: 1rem;
+  fill: ${({ theme }) => theme.color.primary};
 `;
-
-const LogoText = styled.span``;

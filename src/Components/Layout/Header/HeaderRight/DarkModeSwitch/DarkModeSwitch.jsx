@@ -1,21 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+import { setDarkMode } from 'Modules/darkModeModule';
+import { darkModeStorage } from 'Utils/storage';
 
 DarkModeSwitch.propTypes = {
   className: PropTypes.string,
 };
 
 function DarkModeSwitch({ className }) {
-  const [isDark, setIsDark] = useState(false);
+  const dispatch = useDispatch();
+  const { darkMode } = useSelector(({ darkModeReducer }) => ({
+    darkMode: darkModeReducer.darkMode,
+  }));
 
   const handleToggleSwitch = () => {
-    setIsDark((prevState) => !prevState);
+    dispatch(setDarkMode(!darkMode));
   };
+
+  useEffect(() => {
+    darkModeStorage.save(darkMode);
+  }, [darkMode]);
 
   return (
     <DarkModeSwitchContainer className={className}>
-      <input type="checkbox" checked={isDark} onChange={handleToggleSwitch} />
+      <input type="checkbox" checked={darkMode} onChange={handleToggleSwitch} />
       <div className="planet"></div>
       <div className="elements">
         <svg

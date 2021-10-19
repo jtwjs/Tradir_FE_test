@@ -5,12 +5,11 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { ThemeProvider } from 'styled-components';
 
 import Routes from 'Routes';
+
 import rootReducer, { rootSaga } from 'Modules';
-import GlobalStyle from 'Styles/globalStyle';
-import Theme from 'Styles/theme';
+import ThemeProvider from 'Utils/ThemeProvider';
 
 const sagaMiddleware = createSagaMiddleware();
 const middleware =
@@ -27,8 +26,7 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={Theme.light}>
-      <GlobalStyle />
+    <ThemeProvider>
       <Routes />
     </ThemeProvider>
   </Provider>,

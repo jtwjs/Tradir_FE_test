@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100%;
 	  font-family: 'Roboto', sans-serif;
     line-height: 1.43;
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.color.bg};
   }
   
   a, a:hover, a:focus {

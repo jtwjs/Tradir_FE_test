@@ -21,4 +21,5 @@ export default Layout;
 
 const MainContainer = styled.main`
   padding-top: 6.4rem;
+  color: ${({ theme }) => theme.color.primary};
 `;
