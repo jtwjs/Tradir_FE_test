@@ -1,14 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types'
-import styled from 'styled-components';
+
+import Layout from 'Components/Layout/Layout';
 
 function Home() {
   return (
-    <div>Hello</div>
-  )
+    <Layout>
+      <div>Test</div>
+    </Layout>
+  );
 }
 
-Home.propTypes = {
-}
-
-export default Home
+export default Home;

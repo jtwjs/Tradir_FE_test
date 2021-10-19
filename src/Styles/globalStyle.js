@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     width: 100%;
     min-height: 100%;
-    font-size: 14px;
+	  font-family: 'Roboto', sans-serif;
     line-height: 1.43;
     background-color: #fff;
   }
