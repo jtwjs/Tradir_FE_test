@@ -18,9 +18,9 @@ function HeaderNav({ isOpen, handleClose }) {
       location: { pathname },
     } = history;
     if (Array.isArray(path)) {
-      return path.indexOf(pathname.toLowerCase()) !== -1 ? 1 : 0;
+      return path.indexOf(pathname.toLowerCase()) !== -1 ? 'page' : false;
     } else {
-      return path === pathname.toLowerCase() ? 1 : 0;
+      return path === pathname.toLowerCase() ? 'page' : false;
     }
   };
 
@@ -31,27 +31,40 @@ function HeaderNav({ isOpen, handleClose }) {
         <StyledCloseIcon />
       </CloseBtn>
       <NavList>
-        <NavItem>
-          <NavLink to="/home" active={isActiveLink(['/', '/home'])}>
-            <NavText>Home</NavText>
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink to="/beerlist" active={isActiveLink('/beerlist')}>
-            <NavText>Beer List</NavText>
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink to="/cart" active={isActiveLink('/cart')}>
-            <NavText>Cart</NavText>
-          </NavLink>
-        </NavItem>
+        {menuList.map((menu) => (
+          <NavItem key={menu.id}>
+            <NavLink to={menu.link} aria-current={isActiveLink(menu.path)}>
+              <NavText>{menu.text}</NavText>
+            </NavLink>
+          </NavItem>
+        ))}
       </NavList>
     </HeaderNavContainer>
   );
 }
 
 export default HeaderNav;
+
+const menuList = [
+  {
+    id: 0,
+    text: 'Home',
+    link: '/home',
+    path: ['/', '/home'],
+  },
+  {
+    id: 1,
+    text: 'BeerList',
+    link: '/beerlist',
+    path: '/beerlist',
+  },
+  {
+    id: 2,
+    text: 'Cart',
+    link: '/cart',
+    path: '/cart',
+  },
+];
 
 const HeaderNavContainer = styled.nav.attrs(({ isOpen }) => ({
   transform: isOpen ? 'translate(0)' : 'translate(100%)',
@@ -71,7 +84,9 @@ const HeaderNavContainer = styled.nav.attrs(({ isOpen }) => ({
     position: static;
     margin-right: 5rem;
     padding: 0;
+    background-color: inherit;
     transform: none;
+    z-index: 1;
   }
 `;
 
@@ -100,12 +115,15 @@ const NavLink = styled(Link)`
   padding: 1rem;
   font-size: 3rem;
   font-weight: 600;
-  color: ${({ theme, active }) =>
-    active ? theme.color.pink : theme.color.primary};
-  background-color: ${({ theme, active }) =>
-    active ? theme.color.primary : theme.color.bg};
+  color: ${({ theme }) => theme.color.primary};
+  background-color: ${({ theme }) => theme.color.bg};
   cursor: pointer;
   transition: color ease-in-out 0.2s, background-color ease-in-out 0.2s;
+
+  &[aria-current='page'] {
+    color: ${({ theme }) => theme.color.pink};
+    background-color: ${({ theme }) => theme.color.primary};
+  }
 
   &:hover {
     color: ${({ theme }) => theme.color.bg};
@@ -118,17 +136,21 @@ const NavLink = styled(Link)`
     padding: 0 2.5rem;
     font-size: 1.6rem;
     font-weight: ${({ active }) => (active ? '500' : '400')};
-    color: ${({ theme, active }) =>
-      active ? theme.color.primary : theme.color.gray};
+    color: ${({ theme }) => theme.color.gray};
     background-color: unset;
+
+    &[aria-current='page'] {
+      color: ${({ theme }) => theme.color.primary};
+      background-color: unset;
+
+      & > span::before {
+        content: '';
+      }
+    }
 
     &:hover {
       color: ${({ theme }) => theme.color.primary};
       background-color: ${({ theme }) => theme.color.secondary};
-    }
-
-    & > span::before {
-      content: ${({ active }) => (active ? "''" : false)};
     }
   }
 `;

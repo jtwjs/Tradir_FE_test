@@ -24,9 +24,23 @@ function DarkModeSwitch({ className }) {
     darkModeStorage.save(darkMode);
   }, [darkMode]);
 
+  const handleEnter = (e) => {
+    e.keyCode === 13 && handleToggleSwitch();
+  };
+
   return (
-    <DarkModeSwitchContainer className={className}>
-      <input type="checkbox" checked={darkMode} onChange={handleToggleSwitch} />
+    <DarkModeSwitchContainer
+      className={className}
+      htmlFor="dark-switch"
+      tabIndex="0"
+      onKeyDown={handleEnter}>
+      <span className="a11y">다크모드 토글 버튼</span>
+      <input
+        id="dark-switch"
+        type="checkbox"
+        checked={darkMode}
+        onChange={handleToggleSwitch}
+      />
       <div className="planet"></div>
       <div className="elements">
         <svg

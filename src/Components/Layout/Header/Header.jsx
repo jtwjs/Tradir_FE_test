@@ -20,11 +20,12 @@ function Header() {
 export default Header;
 
 const HeaderContainer = styled.header`
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   height: 6.4rem;
+  z-index: 100;
 `;
 
 const HeaderContentWrap = styled.div`

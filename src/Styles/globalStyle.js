@@ -54,7 +54,7 @@ const GlobalStyle = createGlobalStyle`
   label:focus-visible,
   button:focus-visible{
     outline: none;
-    box-shadow: 0 0 0 3px rgba(0,0,0, 0.65);
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.color.primary};
   }
   
   .a11y {
