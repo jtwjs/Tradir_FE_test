@@ -42,6 +42,8 @@ const SkipToMain = styled.a`
 `;
 
 const MainContainer = styled.main`
-  padding-top: 6.4rem;
+  max-width: 140rem;
+  min-height: calc(100vh - 6.4rem);
+  margin: 0 auto;
   color: ${({ theme }) => theme.color.primary};
 `;

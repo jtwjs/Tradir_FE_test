@@ -16,6 +16,10 @@ function DarkModeSwitch({ className }) {
     darkMode: darkModeReducer.darkMode,
   }));
 
+  const handleEnter = (e) => {
+    e.keyCode === 13 && handleToggleSwitch();
+  };
+
   const handleToggleSwitch = () => {
     dispatch(setDarkMode(!darkMode));
   };
@@ -23,10 +27,6 @@ function DarkModeSwitch({ className }) {
   useEffect(() => {
     darkModeStorage.save(darkMode);
   }, [darkMode]);
-
-  const handleEnter = (e) => {
-    e.keyCode === 13 && handleToggleSwitch();
-  };
 
   return (
     <DarkModeSwitchContainer

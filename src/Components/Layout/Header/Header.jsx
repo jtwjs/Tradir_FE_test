@@ -25,6 +25,7 @@ const HeaderContainer = styled.header`
   left: 0;
   width: 100%;
   height: 6.4rem;
+  background-color: ${({ theme }) => theme.color.bg};
   z-index: 100;
 `;
 
