@@ -11,7 +11,9 @@ Layout.propTypes = {
 function Layout({ children }) {
   return (
     <>
-      <SkipToMain href="#main">메뉴 건너뛰기</SkipToMain>
+      <SkipToMain href="#main" tabIndex="1">
+        메뉴 건너뛰기
+      </SkipToMain>
       <Header />
       <MainContainer id="main">{children}</MainContainer>
     </>
@@ -45,5 +47,10 @@ const MainContainer = styled.main`
   max-width: 140rem;
   min-height: calc(100vh - 6.4rem);
   margin: 0 auto;
+  padding: 0 1rem;
   color: ${({ theme }) => theme.color.primary};
+
+  & > section {
+    min-height: inherit;
+  }
 `;

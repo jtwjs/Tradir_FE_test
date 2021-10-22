@@ -10,7 +10,7 @@ const device = {
 
 const light = {
   color: {
-    primary: '#000',
+    primary: '#121212',
     secondary: '#EDEDED',
     bg: '#fff',
     white: '#fff',
@@ -21,14 +21,18 @@ const light = {
     encodingPrimary: '%23000',
     encodingSecondary: '%23EDEDED',
   },
+  boxShadow: {
+    table:
+      '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+  },
   device,
 };
 
 const dark = {
   color: {
-    primary: '#fff',
+    primary: 'rgba(255,255,255, 0.87)',
     secondary: '#222222',
-    bg: '#010101',
+    bg: '#121212',
     white: '#fff',
     black: '#000',
     gray: '#9aa0a6',
@@ -36,6 +40,10 @@ const dark = {
     pinkDark: '#cc3b91',
     encodingPrimary: '%23fff',
     encodingSecondary: '%23222',
+  },
+  boxShadow: {
+    table:
+      '0px 3px 1px -2px rgb(255 255 255 / 20%), 0px 2px 2px 0px rgb(255 255 255 / 14%), 0px 1px 5px 0px rgb(255 255 255 / 12%)',
   },
   device,
 };

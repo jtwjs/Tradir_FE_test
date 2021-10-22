@@ -51,6 +51,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   [tabindex]:focus-visible,
+  a:focus-visible,
   label:focus-visible,
   button:focus-visible{
     outline: none;
