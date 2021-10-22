@@ -20,7 +20,6 @@ export default Home;
 const HomeSection = styled.section`
   position: relative;
   width: 100%;
-  padding-top: 5rem;
 
   @media screen and ${({ theme }) => theme.device.desktop} {
     &::before,

@@ -52,5 +52,6 @@ const MainContainer = styled.main`
 
   & > section {
     min-height: inherit;
+    padding-top: 3rem;
   }
 `;
