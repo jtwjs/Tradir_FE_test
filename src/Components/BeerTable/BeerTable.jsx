@@ -161,9 +161,15 @@ const BeerTableContainer = styled.div`
   width: 100%;
   padding: 1rem 0;
 
-  & tbody > tr.MuiTableRow-hover {
-    &:hover {
-      background-color: ${({ theme }) => theme.color.secondary};
+  & tbody {
+    tr.MuiTableRow-hover {
+      &:hover {
+        background-color: ${({ theme }) => theme.color.secondary};
+      }
+    }
+    & td.MuiTableCell-body {
+      font-size: 1.6rem;
+      color: ${({ theme }) => theme.color.gray};
     }
   }
 

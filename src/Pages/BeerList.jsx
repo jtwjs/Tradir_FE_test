@@ -37,7 +37,7 @@ function BeerList() {
     (event, rowData) => {
       event.stopPropagation();
       cartList.find((item) => item.id === rowData.id)
-        ? window.confirm("It's already in the cart list.")
+        ? window.alert("It's already in the cart list.")
         : dispatch(addCartItem(rowData));
     },
     [cartList],
