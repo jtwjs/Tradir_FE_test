@@ -10,25 +10,25 @@ import {
 } from '@material-ui/icons';
 
 import ToolBar from 'Components/BeerTable/ToolBar/ToolBar';
-import CartBtn from 'Components/BeerTable/CartBtn/CartBtn';
-
-import { ReactComponent as AddCartIcon } from 'Assets/icons/ic_add_cart.svg';
-// import { ReactComponent as RemoveCartIcon } from 'Assets/icons/ic_remove_cart.svg';
 
 BeerTable.propTypes = {
   columnHeader: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
+  // TODO type 찾기
+  ActionComponent: PropTypes.any.isRequired,
   handleDragColumnHeader: PropTypes.func.isRequired,
+  handleClickAction: PropTypes.func.isRequired,
 };
 
-BeerTable.defaultProps = {
-  data: [],
-};
-
-function BeerTable({ columnHeader, data, handleDragColumnHeader }) {
+function BeerTable({
+  columnHeader,
+  data,
+  ActionComponent,
+  handleDragColumnHeader,
+  handleClickAction,
+}) {
   const [filterList, setFilterList] = useState([]);
   const theme = useTheme();
-  console.log('filterList', filterList);
 
   const handleToggleFilter = useCallback(
     ({ target }) => {
@@ -60,7 +60,6 @@ function BeerTable({ columnHeader, data, handleDragColumnHeader }) {
 
       return isEligible;
     });
-    console.log('resut', result);
 
     return result;
   };
@@ -76,20 +75,12 @@ function BeerTable({ columnHeader, data, handleDragColumnHeader }) {
         actions={[
           {
             icon: 'save',
-            onClick: (event, rowData) => {
-              // Do save operation
-              console.log('event', event);
-              console.log('rowData', rowData);
-            },
+            onClick: handleClickAction,
           },
         ]}
         components={{
           Action: ({ action, data }) => (
-            <CartBtn
-              onClick={(e) => action.onClick(e, data)}
-              aria-label="장바구니 추가">
-              <StyledAddCartIcon />
-            </CartBtn>
+            <ActionComponent action={action} data={data} />
           ),
           Toolbar: () => (
             <ToolBar
@@ -202,7 +193,4 @@ const BeerTableContainer = styled.div`
   }
 `;
 
-const StyledAddCartIcon = styled(AddCartIcon)`
-  fill: ${({ theme }) => theme.color.primary};
-`;
 // const StyledRemoveCartIcon = styled(RemoveCartIcon)``;
