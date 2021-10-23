@@ -12,9 +12,7 @@ FilterItem.propTypes = {
 function FilterItem({ children, id, checked, onChange, ...restProps }) {
   const handleEnter = (e) => {
     const { checked, dataset } = e.target.previousSibling;
-    if (e.keyCode === 13) {
-      onChange(!checked, dataset);
-    }
+    e.keyCode === 13 && onChange(!checked, dataset);
   };
 
   return (

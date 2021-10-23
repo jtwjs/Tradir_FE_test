@@ -39,6 +39,7 @@ function BeerList() {
 
   const handleClickAction = useCallback(
     (event, rowData) => {
+      event.stopPropagation();
       cartList.find((item) => item.id === rowData.id)
         ? window.alert('이미 등록됫다..')
         : dispatch(addCartItem(rowData));

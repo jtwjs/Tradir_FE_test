@@ -32,6 +32,7 @@ function CartList() {
 
   const handleClickAction = useCallback(
     (event, rowData) => {
+      event.stopPropagation();
       dispatch(removeCartItem(rowData.id));
     },
     [cartList],

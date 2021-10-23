@@ -10,6 +10,7 @@ import {
 } from '@material-ui/icons';
 
 import ToolBar from 'Components/BeerTable/ToolBar/ToolBar';
+import BeerModal from 'Components/BeerTable/BeerModal/BeerModal';
 
 BeerTable.propTypes = {
   columnHeader: PropTypes.array.isRequired,
@@ -32,7 +33,6 @@ function BeerTable({
 
   const handleToggleFilter = useCallback(
     (checked, dataset) => {
-      console.log(checked, dataset);
       const newFilterList = checked
         ? [...filterList, { ...dataset }]
         : filterList.filter((item) => item.min !== dataset.min);
@@ -80,15 +80,16 @@ function BeerTable({
           },
         ]}
         components={{
-          Action: ({ action, data }) => (
-            <ActionComponent action={action} data={data} />
-          ),
           Toolbar: () => (
             <ToolBar
               filterList={filterList}
               handleToggleFilter={handleToggleFilter}
             />
           ),
+          Action: ({ action, data }) => (
+            <ActionComponent action={action} data={data} />
+          ),
+          Row: (props) => <BeerModal {...props} />,
         }}
         options={{
           actionsColumnIndex: -1,
@@ -158,6 +159,12 @@ const BeerTableContainer = styled.div`
   max-width: 100%;
   width: 100%;
   padding: 1rem 0;
+
+  & tbody > tr.MuiTableRow-hover {
+    &:hover {
+      background-color: ${({ theme }) => theme.color.secondary};
+    }
+  }
 
   & tfoot > tr > td {
     font-size: 1.4rem;
