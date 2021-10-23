@@ -36,6 +36,13 @@ function CartList() {
     [cartList],
   );
 
+  const handleEnterAction = useCallback(
+    (e, data) => {
+      e.keyCode === 13 && handleClickAction(e, data);
+    },
+    [cartList],
+  );
+
   useEffect(() => {
     cartStorage.save(cartList);
   }, [cartList]);
@@ -43,6 +50,7 @@ function CartList() {
   const renderProps = ({ action, data }) => (
     <CartBtn
       onClick={(e) => action.onClick(e, data)}
+      onKeyDown={(e) => handleEnterAction(e, data)}
       aria-label="장바구니 삭제">
       <StyledRemoveIcon />
     </CartBtn>

@@ -43,6 +43,13 @@ function BeerList() {
     [cartList],
   );
 
+  const handleEnterAction = useCallback(
+    (e, data) => {
+      e.keyCode === 13 && handleClickAction(e, data);
+    },
+    [cartList],
+  );
+
   useEffect(() => {
     dispatch(getBeerListRequest());
   }, []);
@@ -54,6 +61,7 @@ function BeerList() {
   const renderProps = ({ action, data }) => (
     <CartBtn
       onClick={(e) => action.onClick(e, data)}
+      onKeyDown={(e) => handleEnterAction(e, data)}
       aria-label="장바구니 추가">
       <StyledAddCartIcon />
     </CartBtn>
