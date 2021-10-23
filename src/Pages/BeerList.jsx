@@ -8,40 +8,36 @@ import CartBtn from 'Components/BeerTable/CartBtn/CartBtn';
 
 import { ReactComponent as AddCartIcon } from 'Assets/icons/ic_add_cart.svg';
 
-import {
-  getBeerListRequest,
-  setBeerColumnHeader,
-} from 'Modules/beerListModule';
+import { getBeerListRequest, setBeerColumnOrder } from 'Modules/beerListModule';
 import { addCartItem } from 'Modules/cardModule';
 import { cartStorage } from 'Utils/storage';
 
 function BeerList() {
   const dispatch = useDispatch();
-  const { beerList, columnHeader, cartList } = useSelector(
+  const { beerList, columnOrder, cartList } = useSelector(
     ({ beerListReducer, cartReducer }) => ({
       beerList: beerListReducer.beerList,
-      columnHeader: beerListReducer.columnHeader,
+      columnOrder: beerListReducer.columnOrder,
       cartList: cartReducer.cartList,
     }),
   );
 
-  const handleDragColumnHeader = useCallback(
+  const handleDragColumnOrder = useCallback(
     (sourceIndex, destinationIndex) => {
-      [columnHeader[sourceIndex], columnHeader[destinationIndex]] = [
-        columnHeader[destinationIndex],
-        columnHeader[sourceIndex],
-      ];
+      const OrderedColumn = [...columnOrder];
+      OrderedColumn.splice(sourceIndex, 1);
+      OrderedColumn.splice(destinationIndex, 0, columnOrder[sourceIndex]);
 
-      dispatch(setBeerColumnHeader(columnHeader));
+      dispatch(setBeerColumnOrder(OrderedColumn));
     },
-    [columnHeader, dispatch],
+    [columnOrder, dispatch],
   );
 
   const handleClickAction = useCallback(
     (event, rowData) => {
       event.stopPropagation();
       cartList.find((item) => item.id === rowData.id)
-        ? window.alert('이미 등록됫다..')
+        ? window.confirm("It's already in the cart list.")
         : dispatch(addCartItem(rowData));
     },
     [cartList],
@@ -68,10 +64,10 @@ function BeerList() {
       <BeerListSection>
         <Title>Beer List</Title>
         <BeerTable
-          columnHeader={columnHeader}
+          columnOrder={columnOrder}
           data={beerList}
           ActionComponent={renderProps}
-          handleDragColumnHeader={handleDragColumnHeader}
+          handleDragColumnOrder={handleDragColumnOrder}
           handleClickAction={handleClickAction}
         />
       </BeerListSection>

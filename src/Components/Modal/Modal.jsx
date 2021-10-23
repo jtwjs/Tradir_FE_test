@@ -129,8 +129,6 @@ Modal.Header = function ModalHeader({ children }) {
 };
 
 Modal.Contents = function ModalContents({ children }) {
-  const context = useContext(ModalContext);
-
   return <DialogModalContents role="group">{children}</DialogModalContents>;
 };
 

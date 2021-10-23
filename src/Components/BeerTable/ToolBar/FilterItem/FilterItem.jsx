@@ -42,7 +42,7 @@ const FilterItemContainer = styled.li`
   width: 100%;
 
   &:not(:last-child) {
-    margin-right: 0.6rem;
+    margin-right: 0.2rem;
   }
 
   input[type='checkbox']:checked + label {
@@ -50,6 +50,12 @@ const FilterItemContainer = styled.li`
 
     &:hover {
       background-color: ${({ theme }) => theme.color.blueDark};
+    }
+  }
+
+  @media screen and ${({ theme }) => theme.device.tabelt} {
+    &:not(:last-child) {
+      margin-right: 0.6rem;
     }
   }
 `;
@@ -73,8 +79,9 @@ const FilterBoxLabel = styled.label`
   width: 100%;
   height: 3rem;
   border-radius: 0.8rem;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   font-weight: 500;
+  white-space: nowrap;
   color: ${({ theme }) => theme.color.secondary};
   background-color: ${({ theme }) => theme.color.gray};
   transition: background-color ease-in-out 0.2s;
@@ -83,5 +90,9 @@ const FilterBoxLabel = styled.label`
 
   &:hover {
     background-color: ${({ theme }) => theme.color.primary};
+  }
+
+  @media screen and ${({ theme }) => theme.device.tabelt} {
+    font-size: 1.6rem;
   }
 `;

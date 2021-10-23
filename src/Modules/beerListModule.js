@@ -4,7 +4,7 @@ import { columnHeaderData } from 'Components/BeerTable/BeerTable';
 export const GET_BEER_LIST_REQUEST = 'GET_BEER_LIST_REQUEST';
 export const GET_BEER_LIST_SUCCESS = 'GET_BEER_LIST_SUCCESS';
 export const GET_BEER_LIST_FAILURE = 'GET_BEER_LIST_FAILURE';
-export const SET_BEER_COLUMN_HEADER = 'SET_BEER_COLUMN_HEADER';
+export const SET_BEER_COLUMN_ORDER = 'SET_BEER_COLUMN_ORDER';
 
 // Action Creator
 export const getBeerListRequest = () => {
@@ -13,11 +13,11 @@ export const getBeerListRequest = () => {
   };
 };
 
-export const setBeerColumnHeader = (payload) => {
+export const setBeerColumnOrder = (payload) => {
   return {
-    type: SET_BEER_COLUMN_HEADER,
+    type: SET_BEER_COLUMN_ORDER,
     payload: {
-      columnHeader: payload,
+      columnOrder: payload,
     },
   };
 };
@@ -25,7 +25,7 @@ export const setBeerColumnHeader = (payload) => {
 // State
 const INITIAL_STATE = {
   beerList: [],
-  columnHeader: columnHeaderData,
+  columnOrder: columnHeaderData.map((_, index) => index),
   error: null,
 };
 
@@ -47,10 +47,10 @@ export const beerListReducer = (state = INITIAL_STATE, action) => {
         error: action.payload,
       };
 
-    case SET_BEER_COLUMN_HEADER:
+    case SET_BEER_COLUMN_ORDER:
       return {
         ...state,
-        columnHeader: action.payload.columnHeader,
+        columnOrder: [...action.payload.columnOrder],
       };
 
     default:

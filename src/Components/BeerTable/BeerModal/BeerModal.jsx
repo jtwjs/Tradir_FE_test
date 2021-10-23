@@ -1,11 +1,8 @@
 import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { MTableBodyRow } from 'material-table';
 
 import Modal from 'Components/Modal/Modal';
-
-BeerModal.propTypes = {};
 
 function BeerModal(props) {
   const infoData = Object.entries(props.data)
@@ -64,8 +61,11 @@ const Title = styled.h2`
 const ContentWrap = styled.div`
   display: flex;
   gap: 3rem;
-  width: 50rem;
   padding: 0 1rem;
+
+  @media screen and ${({ theme }) => theme.device.tablet} {
+    width: 50rem;
+  }
 `;
 
 const FigureWrap = styled.figure`

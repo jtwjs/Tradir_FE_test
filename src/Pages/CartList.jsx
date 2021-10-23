@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Layout from 'Components/Layout/Layout';
 import BeerTable from 'Components/BeerTable/BeerTable';
 
-import { removeCartItem, setCartColumnHeader } from 'Modules/cardModule';
+import { removeCartItem, setCartColumnOrder } from 'Modules/cardModule';
 import { cartStorage } from 'Utils/storage';
 import CartBtn from 'Components/BeerTable/CartBtn/CartBtn';
 
@@ -13,21 +13,19 @@ import { ReactComponent as RemoveCartIcon } from 'Assets/icons/ic_remove_cart.sv
 
 function CartList() {
   const dispatch = useDispatch();
-  const { cartList, columnHeader } = useSelector(({ cartReducer }) => ({
+  const { cartList, columnOrder } = useSelector(({ cartReducer }) => ({
     cartList: cartReducer.cartList,
-    columnHeader: cartReducer.columnHeader,
+    columnOrder: cartReducer.columnOrder,
   }));
 
-  const handleDragColumnHeader = useCallback(
+  const handleDragColumnOrder = useCallback(
     (sourceIndex, destinationIndex) => {
-      [columnHeader[sourceIndex], columnHeader[destinationIndex]] = [
-        columnHeader[destinationIndex],
-        columnHeader[sourceIndex],
-      ];
-
-      dispatch(setCartColumnHeader(columnHeader));
+      const OrderedColumn = [...columnOrder];
+      OrderedColumn.splice(sourceIndex, 1);
+      OrderedColumn.splice(destinationIndex, 0, columnOrder[sourceIndex]);
+      dispatch(setCartColumnOrder(OrderedColumn));
     },
-    [columnHeader, dispatch],
+    [columnOrder, dispatch],
   );
 
   const handleClickAction = useCallback(
@@ -55,10 +53,10 @@ function CartList() {
       <BeerListSection>
         <Title>Cart List</Title>
         <BeerTable
-          columnHeader={columnHeader}
+          columnOrder={columnOrder}
           data={cartList}
           ActionComponent={renderProps}
-          handleDragColumnHeader={handleDragColumnHeader}
+          handleDragColumnOrder={handleDragColumnOrder}
           handleClickAction={handleClickAction}
         />
       </BeerListSection>

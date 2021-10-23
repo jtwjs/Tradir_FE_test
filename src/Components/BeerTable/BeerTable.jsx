@@ -13,19 +13,19 @@ import ToolBar from 'Components/BeerTable/ToolBar/ToolBar';
 import BeerModal from 'Components/BeerTable/BeerModal/BeerModal';
 
 BeerTable.propTypes = {
-  columnHeader: PropTypes.array.isRequired,
+  columnOrder: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
   // TODO type 찾기
   ActionComponent: PropTypes.any.isRequired,
-  handleDragColumnHeader: PropTypes.func.isRequired,
+  handleDragColumnOrder: PropTypes.func.isRequired,
   handleClickAction: PropTypes.func.isRequired,
 };
 
 function BeerTable({
-  columnHeader,
+  columnOrder,
   data,
   ActionComponent,
-  handleDragColumnHeader,
+  handleDragColumnOrder,
   handleClickAction,
 }) {
   const [filterList, setFilterList] = useState([]);
@@ -49,7 +49,7 @@ function BeerTable({
       let isEligible = false;
       filterList.forEach(({ min, max }) => {
         if (max) {
-          if (+min <= abv && +max >= abv) {
+          if (+min <= abv && +max > abv) {
             isEligible = true;
           }
         } else {
@@ -70,7 +70,7 @@ function BeerTable({
   return (
     <BeerTableContainer>
       <MaterialTable
-        columns={columnHeader}
+        columns={columnOrder.map((order) => columnHeaderData[order])}
         data={filteredData}
         icons={tableIcons}
         actions={[
@@ -109,6 +109,7 @@ function BeerTable({
         style={{
           width: '100%',
           padding: '0 1em',
+          fontSize: '1.6rem',
           color: theme.color.primary,
           backgroundColor: theme.color.bg,
           boxShadow: theme.boxShadow.table,
@@ -121,7 +122,7 @@ function BeerTable({
             emptyDataSourceMessage: 'No records to display',
           },
         }}
-        onColumnDragged={handleDragColumnHeader}
+        onColumnDragged={handleDragColumnOrder}
       />
     </BeerTableContainer>
   );
@@ -146,7 +147,7 @@ export const columnHeaderData = [
       <img
         src={rowData.image_url}
         alt="맥주 썸네일 이미지"
-        style={{ width: '4rem', height: '4rem', objectFit: 'contain' }}
+        style={{ width: '3.4rem', height: '3.4rem', objectFit: 'contain' }}
       />
     ),
   },
@@ -200,5 +201,3 @@ const BeerTableContainer = styled.div`
     }
   }
 `;
-
-// const StyledRemoveCartIcon = styled(RemoveCartIcon)``;

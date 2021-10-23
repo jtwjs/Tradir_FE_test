@@ -12,6 +12,7 @@ ToolBar.propTypes = {
 function ToolBar({ filterList, handleToggleFilter }) {
   return (
     <ToolBarContainer>
+      <Title>Filter: alcohol by volume</Title>
       <FilterList>
         {filterData.map((item) => (
           <FilterItem
@@ -100,6 +101,12 @@ const filterData = [
     max: null,
   },
 ];
+
+const Title = styled.h3`
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.color.primary};
+`;
 
 const ToolBarContainer = styled.div`
   padding: 1rem 0;

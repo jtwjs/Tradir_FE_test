@@ -4,7 +4,7 @@ import { columnHeaderData } from 'Components/BeerTable/BeerTable';
 // Action
 export const ADD_CART_ITEM = 'ADD_CART_ITEM';
 export const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM';
-export const SET_CART_COLUMN_HEADER = 'SET_CART_COLUMN_HEADER';
+export const SET_CART_COLUMN_ORDER = 'SET_CART_COLUMN_ORDER';
 
 // Action Creator
 export const addCartItem = (payload) => {
@@ -25,11 +25,11 @@ export const removeCartItem = (payload) => {
   };
 };
 
-export const setCartColumnHeader = (payload) => {
+export const setCartColumnOrder = (payload) => {
   return {
-    type: SET_CART_COLUMN_HEADER,
+    type: SET_CART_COLUMN_ORDER,
     payload: {
-      columnHeader: payload,
+      columnOrder: payload,
     },
   };
 };
@@ -37,7 +37,7 @@ export const setCartColumnHeader = (payload) => {
 // State
 const INITIAL_STATE = {
   cartList: cartStorage.load() || [],
-  columnHeader: columnHeaderData,
+  columnOrder: columnHeaderData.map((_, index) => index),
 };
 
 // Reducer
@@ -57,10 +57,10 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
         ),
       };
 
-    case SET_CART_COLUMN_HEADER:
+    case SET_CART_COLUMN_ORDER:
       return {
         ...state,
-        columnHeader: action.payload.columnHeader,
+        columnOrder: [...action.payload.columnOrder],
       };
 
     default:
