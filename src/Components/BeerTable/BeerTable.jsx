@@ -31,10 +31,11 @@ function BeerTable({
   const theme = useTheme();
 
   const handleToggleFilter = useCallback(
-    ({ target }) => {
-      const newFilterList = target.checked
-        ? [...filterList, { ...target.dataset }]
-        : filterList.filter((item) => item.min !== target.dataset.min);
+    (checked, dataset) => {
+      console.log(checked, dataset);
+      const newFilterList = checked
+        ? [...filterList, { ...dataset }]
+        : filterList.filter((item) => item.min !== dataset.min);
       setFilterList(newFilterList);
     },
     [filterList],

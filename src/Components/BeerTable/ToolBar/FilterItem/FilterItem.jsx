@@ -10,16 +10,26 @@ FilterItem.propTypes = {
 };
 
 function FilterItem({ children, id, checked, onChange, ...restProps }) {
+  const handleEnter = (e) => {
+    const { checked, dataset } = e.target.previousSibling;
+    if (e.keyCode === 13) {
+      onChange(!checked, dataset);
+    }
+  };
+
   return (
     <FilterItemContainer>
       <FilterBoxInput
         type="checkbox"
         id={id}
         checked={checked}
-        onChange={onChange}
+        tabIndex="-1"
+        onChange={(e) => onChange(e.target.checked, e.target.dataset)}
         {...restProps}
       />
-      <FilterBoxLabel htmlFor={id}>{children}</FilterBoxLabel>
+      <FilterBoxLabel htmlFor={id} tabIndex="0" onKeyDown={handleEnter}>
+        {children}
+      </FilterBoxLabel>
     </FilterItemContainer>
   );
 }
