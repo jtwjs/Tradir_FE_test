@@ -1,3 +1,7 @@
+## 배포주소
+- 📌 [배포 사이트](https://quirky-goldstine-d15a67.netlify.app/beerlist)
+
+
 ## FrontEnd Coding Test Template
 안녕하세요,  
 Tradir.io에 지원해 주셔서 감사합니다.🙏
