@@ -1,5 +1,5 @@
 ## 배포주소
-- 📌 [배포 사이트](https://quirky-goldstine-d15a67.netlify.app/beerlist)
+- 📌 [배포 사이트](https://quirky-goldstine-d15a67.netlify.app)
 
 
 ## FrontEnd Coding Test Template
